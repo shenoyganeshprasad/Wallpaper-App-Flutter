@@ -15,13 +15,16 @@ class _FullImageState extends State<FullImage> {
         controller: pageController,
         itemCount: Global.photos.length,
         itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(
-                    Global.photos[index].src.large2x,
-                  ),
-                  fit: BoxFit.cover),
+          return Hero(
+            tag: '$index',
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(
+                      Global.photos[index].src.large2x,
+                    ),
+                    fit: BoxFit.cover),
+              ),
             ),
           );
         },

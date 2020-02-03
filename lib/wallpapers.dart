@@ -18,8 +18,9 @@ class _WallpaperState extends State<Wallpaper> {
     }).then((res) {
       // print(res.body);
       var parsedJson = jsonDecode(res.body);
-      Global.photos =
-          (parsedJson["photos"] as List).map((data) => Photos.fromJson(data)).toList();
+      Global.photos = (parsedJson["photos"] as List)
+          .map((data) => Photos.fromJson(data))
+          .toList();
     });
     setState(() {});
   }
@@ -33,29 +34,42 @@ class _WallpaperState extends State<Wallpaper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.builder(
-        itemCount: Global.photos.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 5,
-            crossAxisSpacing: 5,
-            childAspectRatio: 0.8),
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              Global.index = index;
-              Navigator.of(context).pushNamed('FullImage');
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(Global.photos[index].src.tiny),
-                  fit: BoxFit.cover,
+      appBar: AppBar(
+        title: Text('Wallpapers'),
+        backgroundColor: Colors.indigo,
+      ),
+      body: Padding(
+        padding: EdgeInsets.only(top: 5.0),
+        child: GridView.builder(
+          itemCount: Global.photos.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 5,
+              childAspectRatio: 0.8),
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                Global.index = index;
+                Navigator.of(context).pushNamed('FullImage');
+              },
+              child: Hero(
+                tag: '$index',
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        Global.photos[index].src.tiny,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
