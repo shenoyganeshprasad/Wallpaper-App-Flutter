@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'global.dart';
 import 'models/photos.dart';
 
@@ -35,8 +36,20 @@ class _WallpaperState extends State<Wallpaper> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Wallpapers'),
         backgroundColor: Colors.indigo,
+        title: Text('Wallpapers'),
+        elevation: 5.0,
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                Navigator.of(context).pushNamed('SearchBar');
+              },
+            ),
+          )
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.only(top: 5.0),
