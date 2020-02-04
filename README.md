@@ -1,4 +1,4 @@
-# wallpaper_app
+# Wallpapers from Pexels
 
 Wallpaper app based on Pexels API
 
